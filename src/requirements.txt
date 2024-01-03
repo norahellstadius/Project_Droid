@@ -1,2 +1,3 @@
 bardapi
+jira
 git+https://github.com/dsdanielpark/Bard-API.git
