@@ -3,4 +3,4 @@ services:
     image: app:1.0
     volumes:
       - ./secrets:/secrets
-      - ./src:/src 
+      - ./src:/src
