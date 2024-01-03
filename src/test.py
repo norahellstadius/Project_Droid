@@ -11,9 +11,9 @@ def get_api_key():
 
     try:
         with open(file_path, 'r') as file:
-            api_token = file.read()
+            api_token = json.load(file)
 
-        return api_token.strip()
+        return api_token["api_token"]
 
     except Exception as e:
         print(f"Error reading API token file: {e}")
@@ -85,10 +85,6 @@ if __name__ == "__main__":
 
     api_key = get_api_key()
     credentials = get_jira_credentials()
-    print("Server:", credentials["server"])
-    print("Email Address:", credentials["email_address"])
-    print("Token:", credentials["token"])
-    print("Key:", credentials["key"])
     # Get input task title from the user
     task_title = input("Enter the title of the ticket: ")
     

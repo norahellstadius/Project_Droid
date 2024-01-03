@@ -1,6 +1,6 @@
 services:
   app:
-    image: app:1.0
+    image: app:2.0
     volumes:
       - ./secrets:/secrets
       - ./src:/src
