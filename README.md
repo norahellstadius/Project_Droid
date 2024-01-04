@@ -25,6 +25,21 @@ mkdir secrets
 cd secrets
 ```
 
+After adding the credentials, the folder structure should look like the following: 
+
+```
+├── secrets
+│   ├── bard_token.json
+│   ├── jira_credentials.json
+├── src
+│   ├── docker-shell.sh
+│   ├── Dockerfile.json
+│   ├── requirements.json
+│   ├── test.json
+├── docker-compose.yml
+├── README.md
+```
+
 #### b. Add API token for Bard:
 
 In the 'secrets' folder, create a file named 'bard_token.json' with the following content:
@@ -56,22 +71,7 @@ Navigate to the 'src' directory and build the Docker image by running the comman
 sh docker-shell.sh
 ```
 
-## Project Organization
 
-After adding the credentials, the folder structure should look like the following: 
-
-```
-├── secrets
-│   ├── bard_token.json
-│   ├── jira_credentials.json
-├── src
-│   ├── docker-shell.sh
-│   ├── Dockerfile.json
-│   ├── requirements.json
-│   ├── test.json
-├── docker-compose.yml
-├── README.md
-```
 
 ## Getting Started 
 
