@@ -1,6 +1,10 @@
 # Project Droid
+**Author: Nora Hallqvist**
 
-## Preliminary Steps
+## Video Demo
+* [Video Demo](https://www.youtube.com/watch?v=LmK48wLHlfA)
+
+## Installation 
 
 ### 1. Clone the Repository
 
@@ -44,6 +48,14 @@ echo '{
 }' > jira_credentials.json
 ```
 
+### 3. Build the Docker Image
+
+Navigate to the 'src' directory and build the Docker image by running the command:
+
+```bash
+sh docker-shell.sh
+```
+
 ## Project Organization
 
 After adding the credentials, the folder structure should look like the following: 
@@ -63,53 +75,49 @@ After adding the credentials, the folder structure should look like the followin
 
 ## Getting Started 
 
-1. **Build the Docker Image**
+### 1. Run the Container
 
-   Navigate to the 'src' directory and build the Docker image by running the command:
+To run the container, use Docker Compose, which mounts the secrets (credentials for Bard and Jira). Navigate out of 'src' and run the command:
 
-   ```bash
-   sh docker-shell.sh
-   ```
+```bash
+docker-compose run app
+```
 
-2. **Run the Container**
+This will run the container and automatically execute the Python script, guiding the user to create a ticket from just a title).
 
-   To run the container, use Docker Compose, which mounts the secrets (credentials for Bard and Jira). To accomplish this navigate out of 'src' and run the command:
+### 2. Create a Ticket
 
-   ```bash
-   docker-compose run app
-   ```
+#### a. Provide a ticket title 
 
-   This will run the container and automatically execute the Python script, guiding the user to create a ticket from just a title).
+In the terminal, the user is prompted with:
 
-3. **Create a Ticket**
+```bash
+Enter the title of the ticket:
+```
 
-  In the terminal, the user is prompted with:
+The user should enter the title and press enter. For example:
 
-  ```bash
-  Enter the title of the ticket:
-  ```
+```bash
+Enter the title of the ticket: Add Social Media Sharing Buttons to Blog Posts
+```
 
-  The user should enter the title and press enter. For example:
+*Note: if the user only provides a single word or only digits the user is asked to provide an improved title.* 
 
-  ```bash
-  Enter the title of the ticket: Add Social Media Sharing Buttons to Blog Posts
-  ```
+#### b. Provide a priority status of ticket
 
-  *Note: if the user only provides a single word or only digits the user is asked to provide an improved title.* 
+After providing a sufficient title the user is prompted with an option to choose the priority of the ticket. 
 
-  After providing a sufficient title the user is prompted with an option to choose the priority of the ticket. 
+```bash
+[?] Assign a priority to the ticket?: Highest
+    > Highest
+    High
+    Medium
+    Low
+    Lowest
+```
 
-   ```bash
-  [?] Assign a priority to the ticket?: Highest
-      > Highest
-      High
-      Medium
-      Low
-      Lowest
-  ```
-
-  This initiates the generation of the ticket and if the credentials of Jira are successfully set up, the fully scoped ticket should be uploaded under the project in Jira. The ticket content is also printed in terminal. 
+#### c. Final Ticket
+This initiates the generation of the ticket and if the credentials of Jira are successfully set up, the fully scoped ticket should be uploaded under the project in Jira. The ticket content is also printed in the terminal.
 
 ## Future Work 
-- Fine-tune a LLM model with training pairs including titles and well-scoped ticket as the input and label respectively
-
+- Fine-tune an LLM model with training pairs including titles and well-scoped tickets as the input and label, respectively.
