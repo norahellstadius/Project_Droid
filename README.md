@@ -1,23 +1,27 @@
-# Preliminary Steps
+# Project Droid
 
-## 1. Clone the Repository
+## Preliminary Steps
+
+### 1. Clone the Repository
 
 ```bash
 git clone git@github.com:norahellstadius/Project_Droid.git
 ```
 
-## 2. Add Credentials
+### 2. Add Credentials
 
-After cloning the repository, follow these steps to add necessary credentials:
+After cloning the repository, follow these steps to add the necessary credentials for Bard (LLM model) and Jira:
 
-### a. Create a 'secrets' folder
+#### a. Create a 'secrets' folder
+
+On the same level as 'src', create a folder called 'secrets'
 
 ```bash
 mkdir secrets
 cd secrets
 ```
 
-### b. Add api token for the Bard:
+#### b. Add API token for Bard:
 
 In the 'secrets' folder, create a file named 'bard_token.json' with the following content:
 
@@ -27,7 +31,7 @@ echo '{
 }' > bard_token.json
 ```
 
-### c. Add credentials for Jira
+#### c. Add credentials for Jira
 
 In the 'secrets' folder, create a file named 'jira_credentials.json' with the following content:
 
@@ -40,9 +44,9 @@ echo '{
 }' > jira_credentials.json
 ```
 
-# Project Organization
+## Project Organization
 
-After adding the credentials, the project should follow this structure:
+After adding the credentials, the folder structure should look like the following: 
 
 ```
 ├── secrets
@@ -75,33 +79,37 @@ After adding the credentials, the project should follow this structure:
    docker-compose run app
    ```
 
-   This will run the container and automatically execute the Python script, guiding the user to create a ticket from a minimally described task (with just a title).
+   This will run the container and automatically execute the Python script, guiding the user to create a ticket from just a title).
 
 3. **Create a Ticket**
 
-   In the terminal, the user is prompted with:
+  In the terminal, the user is prompted with:
+
+  ```bash
+  Enter the title of the ticket:
+  ```
+
+  The user should enter the title and press enter. For example:
+
+  ```bash
+  Enter the title of the ticket: Add Social Media Sharing Buttons to Blog Posts
+  ```
+
+  *Note: if the user only provides a single word or only digits the user is asked to provide an improved title.* 
+
+  After providing a sufficient title the user is prompted with an option to choose the priority of the ticket. 
 
    ```bash
-   Enter the title of the ticket:
-   ```
+  [?] Assign a priority to the ticket?: Highest
+      > Highest
+      High
+      Medium
+      Low
+      Lowest
+  ```
 
-   The user should enter the title and press enter. For example:
+  This initiates the generation of the ticket and if the credentials of Jira are successfully set up, the fully scoped ticket should be uploaded under the project in Jira. The ticket content is also printed in terminal. 
 
-   ```bash
-   Enter the title of the ticket: create blue button
-   ```
-
-   This initiates the process of creating a ticket based on the provided title.
-
-  
-TODO: 
-- add comments to code 
-- in readme describe the credentials beter like what is service_account 
-- improve formate and spacing using librarys 
-- create checklist for the acceptance criteria
-
-
-
-Future work 
-- finetune the LLM with sample Jira tickets with training pairs i.e titles and well scoped ticket as the label and input respectively. 
+## Future Work 
+- Fine-tune a LLM model with training pairs including titles and well-scoped ticket as the input and label respectively
 

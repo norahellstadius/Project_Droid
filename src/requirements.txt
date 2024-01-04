@@ -1,4 +1,4 @@
-bardapi
+bardapi==0.1.23a
 jira
 inquirer
 git+https://github.com/dsdanielpark/Bard-API.git
