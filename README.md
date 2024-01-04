@@ -2,7 +2,7 @@
 **Author: Nora Hallqvist**
 
 ## Video Demo
-* [Video Demo](https://www.youtube.com/watch?v=LmK48wLHlfA)
+* [Video Demo]()
 
 ## Installation 
 
