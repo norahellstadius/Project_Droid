@@ -70,9 +70,6 @@ Navigate to the 'src' directory and build the Docker image by running the comman
 ```bash
 sh docker-shell.sh
 ```
-
-
-
 ## Getting Started 
 
 ### 1. Run the Container
@@ -83,7 +80,7 @@ To run the container, use Docker Compose, which mounts the secrets (credentials 
 docker-compose run app
 ```
 
-This will run the container and automatically execute the Python script, guiding the user to create a ticket from just a title).
+This will run the container and automatically execute the Python script, guiding the user to create a ticket from just a title.
 
 ### 2. Create a Ticket
 
