@@ -92,3 +92,16 @@ After adding the credentials, the project should follow this structure:
    ```
 
    This initiates the process of creating a ticket based on the provided title.
+
+  
+TODO: 
+- add comments to code 
+- in readme describe the credentials beter like what is service_account 
+- improve formate and spacing using librarys 
+- create checklist for the acceptance criteria
+
+
+
+Future work 
+- finetune the LLM with sample Jira tickets with training pairs i.e titles and well scoped ticket as the label and input respectively. 
+

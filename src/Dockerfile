@@ -20,10 +20,10 @@ RUN pip install -r requirements.txt
 # Install Rust using rustup
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
-# Refresh the current shell
+# Refresh the current shell for Rust 
 RUN /bin/bash -c "source $HOME/.cargo/env"
 
 # Copy the contents of the current directory 
 COPY . .
 
-CMD ["python", "test.py"]
+CMD ["python", "app.py"]

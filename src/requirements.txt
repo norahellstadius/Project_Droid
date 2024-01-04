@@ -1,3 +1,4 @@
 bardapi
 jira
+inquirer
 git+https://github.com/dsdanielpark/Bard-API.git
