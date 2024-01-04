@@ -6,6 +6,7 @@ ENV BARD_API_TOKEN_FILE=../secrets/bard_token.json
 # jira credentials
 ENV JIRA_CREDENTIALS_FILE=../secrets/jira_credentials.json
 
+#set working directory
 WORKDIR /src
 
 # Create necessary directories
@@ -26,4 +27,5 @@ RUN /bin/bash -c "source $HOME/.cargo/env"
 # Copy the contents of the current directory 
 COPY . .
 
+#run app script when container is run
 CMD ["python", "app.py"]
