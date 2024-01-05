@@ -7,6 +7,9 @@ This Python program automates Jira ticket creation. Simply provide a title, and 
 ## Approach 
 Utilizing the [Bard](https://bard.google.com/chat) (LLM from Google) API, this program generates ticket content from user-provided titles. Post-processing involves regex filters and iterative refinement, enhancing the output's structure and ensuring a tailored result. The iterative refinement involves taking Bard's initial output and utilizing it in a subsequent prompt, ensuring the final output adheres to the expected structure.
 
+## Important
+For the python program to work you need to ensure that you set up the credentials for both Bard and Jira. This setup is detailed in the Installation section below.
+
 ## Video Demo
 * [Video Demo](https://youtu.be/B6tms-23zpk)
 
@@ -124,3 +127,4 @@ This initiates the generation of the ticket and if the credentials of Jira are s
 
 ## Future Work 
 - Fine-tune an LLM model with training pairs including titles and well-scoped tickets as the input and label, respectively.
+- Based on the title classify the ticket (ML model) as a specific type (e.g Bug, Task etc.)
