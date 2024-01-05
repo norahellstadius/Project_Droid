@@ -1,6 +1,12 @@
 # Project Droid
 **Author: Nora Hallqvist**
 
+## Description 
+This Python program automates Jira ticket creation. Simply provide a title, and the program generates a scoped ticket and uploads it to Jira. 
+
+## Approach 
+Utilizing the Bard (LLM from Google) API, this program generates ticket content from user-provided titles. Post-processing involves regex filters and iterative refinement, enhancing the output's structure and ensuring a tailored result. The iterative refinement involves taking Bard's initial output and utilizing it in a subsequent prompt, ensuring the final output adheres to the expected structure.
+
 ## Video Demo
 * [Video Demo](https://youtu.be/B6tms-23zpk)
 
