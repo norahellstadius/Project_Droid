@@ -11,7 +11,8 @@ Utilizing the [Bard](https://bard.google.com/chat) (LLM from Google) API, this p
 For the python program to work you need to ensure that you set up the credentials for both Bard and Jira. This setup is detailed in the Installation section below.
 
 ## Video Demo
-* [Video Demo](https://youtu.be/B6tms-23zpk)
+* [Video Demo](https://youtu.be/riW-bcDoXj0)
+
 
 ## Installation 
 
