@@ -190,7 +190,7 @@ class Ticket:
                 }
             }
         """
-
+        print(input_string)
         lines = input_string.strip().split("\n")
         filtered_list = [
             item for item in lines if item.strip()
@@ -198,11 +198,13 @@ class Ticket:
         result_dict = {}
 
         for line in filtered_list:
-            # Split each line into title and description based on the colon
-            title, description = map(str.strip, line.split(":", 1))
-            title_no_number = title.split(".", 1)[-1].strip()
-            # Add the title and description to the dictionary
-            result_dict[title_no_number] = [description]
+            # Check if the line contains a colon
+            if ":" in line:
+                # Split each line into title and description based on the colon
+                title, description = map(str.strip, line.split(":", 1))
+                title_no_number = title.split(".", 1)[-1].strip()
+                # Add the title and description to the dictionary
+                result_dict[title_no_number] = [description]
 
         return result_dict
 
@@ -224,6 +226,7 @@ class Ticket:
         response_no_numerals = self.replace_alpha_numerals(response)
         # for consistency removed the bold
         response_no_bold = response_no_numerals.replace("*", "")
+        print(response_no_bold)
 
         # if contains a dash indictaes is has sublists
         if " - " in response_no_bold:
