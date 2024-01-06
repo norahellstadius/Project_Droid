@@ -13,6 +13,28 @@ For the python program to work you need to ensure that you set up the credential
 ## Video Demo
 * [Video Demo](https://youtu.be/riW-bcDoXj0)
 
+## Project structure 
+
+```
+├── secrets
+│   ├── bard_token.json
+│   ├── jira_credentials.json
+├── src
+│   ├── app.json
+│   ├── docker-shell.sh
+│   ├── Dockerfile.json
+│   ├── requirements.json
+│   ├── ticket.py
+├── docker-compose.yml
+├── README.md
+```
+
+* `src/app.py` : This file runs the program which creates the ticket and uploads it to Jira 
+* `src/docker-shell.sh` : This script is used to build and launch the container.
+* `src/Dockerfile` : This file is used to specify the container image.
+* `src/requirements` : This file specify the dependencies for the ticket.py and app.py
+* `src/ticket.py` : This file is contains the ticket class.
+
 
 ## Installation 
 
