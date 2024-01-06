@@ -190,7 +190,6 @@ class Ticket:
                 }
             }
         """
-        print(input_string)
         lines = input_string.strip().split("\n")
         filtered_list = [
             item for item in lines if item.strip()
@@ -226,7 +225,6 @@ class Ticket:
         response_no_numerals = self.replace_alpha_numerals(response)
         # for consistency removed the bold
         response_no_bold = response_no_numerals.replace("*", "")
-        print(response_no_bold)
 
         # if contains a dash indictaes is has sublists
         if " - " in response_no_bold:
@@ -571,8 +569,8 @@ def get_ticket_title() -> str:
             "Invalid input, unable to create ticket from a title which only contains digits."
         )
         ticket_title = input("Enter improved ticket title: ")
-
-    return ticket_title
+    
+    return ticket_title.title() #capatilize the title 
 
 
 if __name__ == "__main__":
@@ -584,7 +582,7 @@ if __name__ == "__main__":
     ticket_title = get_ticket_title()
 
     # generate ticket
-    ticket = Ticket(bard_api_key, ticket_title.title())
+    ticket = Ticket(bard_api_key, ticket_title)
     ticket.get_ticket_prority()
     ticket.create_ticket_body_text()
     ticket.upload_ticket_to_jira(jira_credentials)
