@@ -113,7 +113,7 @@ class Ticket:
 
         # Replace each occurrence with '-'
         for match in matches:
-            response = response.replace(match, '-')
+            response = response.replace(match, ' - ')
 
         return response
 
@@ -188,17 +188,19 @@ class Ticket:
             }
         """
 
-        edited_text = input_string.replace('*', '')
-        #find pattern number. title : description 
-        pattern = re.compile(r'\s*(\d+)\.\s*([^:]+):\s*(.*)\s*,\s*')
-        matches = pattern.findall(edited_text)
-
+        lines = input_string.strip().split('\n')
+        filtered_list = [item for item in lines if item.strip()] #remove entries with ""
         result_dict = {}
-        for match in matches:
-            number, title, description = map(str.strip, match)
-            result_dict[title] = [description]
+
+        for line in filtered_list:
+            # Split each line into title and description based on the colon
+            title, description = map(str.strip, line.split(':', 1))
+            title_no_number = title.split('.', 1)[-1].strip()
+            # Add the title and description to the dictionary
+            result_dict[title_no_number] = [description]
 
         return result_dict
+
 
     def response_to_dict(self, response:str) -> dict: 
         """
@@ -219,7 +221,7 @@ class Ticket:
         #for consistency removed the bold 
         response_no_bold = response_no_numerals.replace('*', '') 
 
-        if '-' in response_no_bold: 
+        if ' - ' in response_no_bold: 
             list_dict = self.parser_sublists(response_no_bold)
         else: 
             list_dict = self.parser_no_sublists(response_no_bold)
@@ -230,7 +232,7 @@ class Ticket:
     @staticmethod
     def dict_to_str(text_dict: dict) -> str:
         """
-        Returns a formatted text with sections and subpoints from the content of the dict.
+        Returns a formatted text with sections and subpoints from the content of the dict for Jira.
 
         Parameters
         ----------
@@ -240,17 +242,19 @@ class Ticket:
         Returns
         -------
         formatted_text: str
-            A formatted text with sections and subpoints
+            A formatted text with sections and subpoints for Jira
         """
         formatted_text = ""
 
         for num, (title, subpoints) in enumerate(text_dict.items(), start=1):
-            formatted_text += f"{num}. **{title}**\n"
-            for subpoint in subpoints:
-                formatted_text += f"    - {subpoint}\n"
-
-        # Remove trailing whitespaces
-        formatted_text = formatted_text.rstrip()
+            if len(subpoints) == 1:
+                formatted_text += f"*{num}. {title}*: {subpoints[0]}\n"
+            else: 
+                formatted_text += f"*{num}. {title}* \n"
+                for i, subpoint in enumerate(subpoints):
+                    formatted_text += f"    - {subpoint}\n"
+                    if i == len(subpoints) - 1:
+                        formatted_text += "\n"
 
         return formatted_text
 
@@ -272,12 +276,10 @@ class Ticket:
         clean_section_text: str
         """
         bard_text = model.get_answer(prompt)["content"]
-        print(bard_text)
         bard_dict = self.response_to_dict(bard_text)
         
         while bard_dict == {}:
             bard_text = model.get_answer(prompt)["content"]
-            print(bard_text)
             bard_dict = self.response_to_dict(bard_text)
         
         clean_section_text = self.dict_to_str(bard_dict)
@@ -315,9 +317,10 @@ class Ticket:
         description_text_clean = self.clean_description(description_text)
 
         # Prompt for acceptance criteria
-        prompt_acceptance_criteria = f"""Review the Jira Ticket titled '{self.title}' and provide a well-organized response in the form of a numbered list outlining the acceptance criteria. Emphasize the key goals and functionalities as indicated in the following description: '{description_text_clean}'.
-
-        Ensure that your response adheres to the specified format with a short title and single line description:
+        prompt_acceptance_criteria = f"""Return a numbered list outlining the acceptance criteria for the Jira Ticket titled '{self.title}'.
+        Emphasize the key goals and functionalities as indicated in the following description: '{description_text_clean}'.
+        
+        The response must follow this structured format:
 
         1. Button Placement: The social media sharing button should be prominently positioned within the blog post section, preferably near the post title or at the end of the post.
         2. Supported Platforms: The button must support sharing on popular social media platforms, including but not limited to Facebook, Twitter, and LinkedIn.
@@ -326,40 +329,38 @@ class Ticket:
         Response must adhere to this structure: number. short title: a single line description.
         """
 
-        print("ac section ...")
         acceptance_criteria_text_clean = self.get_section_text(model, prompt_acceptance_criteria)
 
         # Prompt for subtasks
-        prompt_subtasks = f"""Given the Jira Ticket titled '{self.title}', its description {description_text_clean} and acceptance criteria {acceptance_criteria_text_clean}, 
-        return a dictionary comprising a concise list of independent subtasks to complete the ticket. 
+        prompt_subtasks = f"""Return a numbered list outlining independent subtasks to complete the Jira ticket titled '{self.title}' 
+        with a description {description_text_clean} and acceptance criteria {acceptance_criteria_text_clean}. 
         Each subtask must be self-contained and mutually exclusive.
 
-       Ensure that your response adheres to the specified format with a short title and single line description:
+        The response should follow this structured format:
 
-            1. Implementation of Button Component: Create a reusable component for the social media sharing button.,
-            2. Integration with Social Media APIs: Integrate the button with the APIs of selected social media platforms for sharing functionality.,
-            3. Styling and Responsiveness: Apply consistent styling to the button and ensure it looks good on all devices.
-        
+        1. Implementation of Button Component: Create a reusable component for the social media sharing button.
+        2. Integration with Social Media APIs: Integrate the button with the APIs of selected social media platforms for sharing functionality.
+        3. Styling and Responsiveness: Apply consistent styling to the button and ensure it looks good on all devices.
+
         Response must adhere to this structure: number. short title: a single line description.
-
         """
-        print("st section ...")
+
         subtasks_text_clean = self.get_section_text(model, prompt_subtasks)
 
     
         # Prompt for assumptions
-        prompt_assumptions = f"""Given the Jira Ticket titled '{self.title}', its description {description_text_clean} and acceptance criteria {acceptance_criteria_text_clean}, and with subtasks '{subtasks_text_clean}' 
-        return a dictionary comprising a concise list of the assumptions. 
+        prompt_assumptions = f"""Return a numbered list outlining the assumptions to complete the Jira ticket titled '{self.title}',
+        with a description {description_text_clean}, acceptance criteria {acceptance_criteria_text_clean} and subtasks '{subtasks_text_clean}'.
 
-        Ensure that your response adheres to the specified format with a short title and single line description:
+        The response should follow this structured format:
 
-            1. Backend Support: It is assumed that the backend infrastructure already supports generating shareable links for blog posts,
-            2. API Availability: The availability and stability of the social media platform APIs are assumed for the sharing functionality,
-            3. Design Assets: Necessary design assets, such as icons for social media platforms, are assumed to be available for implementation
+        1. Backend Support: It is assumed that the backend infrastructure already supports generating shareable links for blog posts,
+        2. API Availability: The availability and stability of the social media platform APIs are assumed for the sharing functionality,
+        3. Design Assets: Necessary design assets, such as icons for social media platforms, are assumed to be available for implementation
         
         Response must adhere to this structure: number. short title: a single line description.
         """
-        print("as section ...")
+
         assumptions_text_clean = self.get_section_text(model, prompt_assumptions)
 
 
