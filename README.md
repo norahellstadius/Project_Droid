@@ -159,3 +159,4 @@ This initiates the generation of the ticket and if the credentials of Jira are s
 ## Future Work 
 - Fine-tune an LLM model with training pairs including titles and well-scoped tickets as the input and label, respectively.
 - Based on the title classify the ticket (ML model) as a specific type (e.g Bug, Task etc.)
+- Experiment with better (stronger) LLM models like GPT-4 (I expected it should generated improved content)
