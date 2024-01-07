@@ -3,6 +3,7 @@ import re
 import json
 from ticket import Ticket
 
+
 def get_bard_api_key() -> str:
     """
     Get the api tokens for the LLM model (Bard).
