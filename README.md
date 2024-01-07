@@ -70,7 +70,7 @@ echo '{
 ```
 
 Replace "xxxxx" with the API key of Bard found following these steps: 
-1. Accesing the [Bard Chat](https://bard.google.com/chat) 
+1. Access the [Bard Chat](https://bard.google.com/chat) 
 2. Click on 'Inspect' to open the browser developer tools.
 3. Navigate to the 'Application' tab within the developer tools.
 3. Under 'Cookies', find and copy the value of "__Secure-1PSID".
