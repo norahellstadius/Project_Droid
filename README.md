@@ -5,7 +5,7 @@
 This Python program automates Jira ticket creation. Simply provide a title, and the program generates a scoped ticket and uploads it to Jira. 
 
 ## Approach 
-Utilizing the [Bard](https://bard.google.com/chat) (LLM from Google) API, this program generates ticket content from user-provided titles. Post-processing involves regex filters and iterative refinement, enhancing the output's structure and ensuring a tailored result. The iterative refinement involves taking Bard's initial output and utilizing it in a subsequent prompt, ensuring the final output adheres to the expected structure.
+Utilizing the [Bard](https://bard.google.com/chat) (LLM from Google) API, this program generates ticket content from user-provided titles. Post-processing involves regex filters and iterative refinement, enhancing the output's structure and ensuring a tailored result. 
 
 ## Important
 For the python program to work you need to ensure that you set up the credentials for both Bard and Jira. This setup is detailed in the Installation section below.
@@ -25,8 +25,9 @@ For the python program to work you need to ensure that you set up the credential
 │   ├── Dockerfile.json
 │   ├── requirements.json
 │   ├── ticket.py
-├── docker-compose.yml
+├── .gitignore
 ├── README.md
+├── docker-compose.yml
 ```
 
 * `src/app.py` : This file runs the program which creates the ticket and uploads it to Jira 
@@ -34,6 +35,7 @@ For the python program to work you need to ensure that you set up the credential
 * `src/Dockerfile` : This file is used to specify the container image.
 * `src/requirements` : This file specify the dependencies for the ticket.py and app.py
 * `src/ticket.py` : This file is contains the ticket class.
+* `docker-compose.py` : This file is run to start the program. It also mounts the secrets.
 
 
 ## Installation 
@@ -66,6 +68,12 @@ echo '{
   "api_token": "xxxxx"
 }' > bard_token.json
 ```
+
+Replace "xxxxx" with the API key of Bard found following these steps: 
+1. Accesing the [Bard Chat](https://bard.google.com/chat) 
+2. Click on 'Inspect' to open the browser developer tools.
+3. Navigate to the 'Application' tab within the developer tools.
+3. Under 'Cookies', find and copy the value of "__Secure-1PSID".
 
 #### c. Add credentials for Jira
 
