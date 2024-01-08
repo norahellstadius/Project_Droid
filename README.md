@@ -95,12 +95,14 @@ After adding the credentials, the folder structure should look like the followin
 │   ├── bard_token.json
 │   ├── jira_credentials.json
 ├── src
+│   ├── app.json
 │   ├── docker-shell.sh
 │   ├── Dockerfile.json
 │   ├── requirements.json
-│   ├── test.json
-├── docker-compose.yml
+│   ├── ticket.py
+├── .gitignore
 ├── README.md
+├── docker-compose.yml
 ```
 
 ### 3. Build the Docker Image
