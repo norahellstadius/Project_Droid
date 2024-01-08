@@ -16,9 +16,6 @@ For the python program to work you need to ensure that you set up the credential
 ## Project structure 
 
 ```
-├── secrets
-│   ├── bard_token.json
-│   ├── jira_credentials.json
 ├── src
 │   ├── app.json
 │   ├── docker-shell.sh
