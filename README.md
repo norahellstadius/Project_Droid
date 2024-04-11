@@ -1,6 +1,7 @@
 # Project Droid
 **Author: Nora Hallqvist**
-**Purpose:t** Just a fun project 
+
+**Purpose:** Just a fun project 
 
 ## Description 
 This Python program automates Jira ticket creation. Simply provide a title, and the program generates a scoped ticket and uploads it to Jira. 
